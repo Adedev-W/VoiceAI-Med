@@ -1,0 +1,23 @@
+[project]
+name = "voiceai-med"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Ade Saputra", email = "adesaputradevs@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv>=1.0.1",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "pipecat-ai>=0.0.80",
+]
+
+[project.scripts]
+voiceai-med = "voiceai_med:main"
+voiceai-med-server = "voiceai_med.main:app"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
