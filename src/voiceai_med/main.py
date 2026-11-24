@@ -8,9 +8,11 @@ from .db import init_db, rows
 from .services import appointments, doctors
 load_dotenv(); init_db()
 app = FastAPI(title="VoiceAI Med")
-WEB = Path(__file__).parent / "web"; app.mount("/static", StaticFiles(directory=WEB), name="static")
+WEB = Path(__file__).parent / "web"; DIST = WEB / "dist"
+if DIST.exists(): app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
+else: app.mount("/static", StaticFiles(directory=WEB), name="static")
 @app.get("/")
-def index(): return FileResponse(WEB / "index.html")
+def index(): return FileResponse((DIST / "index.html") if DIST.exists() else WEB / "index.html")
 @app.get("/api/doctors")
 def get_doctors(): return doctors()
 @app.get("/api/slots")
